@@ -10,7 +10,7 @@ setInterval(function() {
     if (d.getHours() > 20 || d.getHours < 10) {
       shouldText = false;
     } else {
-      if (d.getHours % 2 === 0) {
+      if (d.getHours() % 2 === 0) {
         shouldText = true;
       } else {
         shouldText = false;
