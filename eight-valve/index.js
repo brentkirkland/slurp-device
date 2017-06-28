@@ -52,7 +52,7 @@ Bleacon.on('discover', function(bleacon) {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: payload
+        body: JSON.stringify(payload)
       }
 
       // TODO: Better error handling
