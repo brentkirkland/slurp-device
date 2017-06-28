@@ -9,17 +9,19 @@ function myTimer() {
 }
 
 var shouldText = true;
-// Bleacon.startScanning();
 
 setInterval(function() {
   var d = new Date()
-  console.log('checking time')
-  if (d.getMinutes() === 0) {
+  if (d.getMinutes() === 0 && d.getHours()) {
     console.log("full hour");
     if (d.getHours() > 20 || d.getHours < 10) {
       shouldText = false;
     } else {
-      shouldText = !shouldText;
+      if (d.getHours % 2 === 0) {
+        shouldText = true;
+      } else {
+        shouldText = false;
+      }
     }
     Bleacon.startScanning();
   }
