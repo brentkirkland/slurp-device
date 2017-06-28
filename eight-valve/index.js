@@ -41,7 +41,9 @@ Bleacon.on('discover', function(bleacon) {
       var payload = {
         readings: readings,
         avgTemp: calcAvgTemp,
-        timestamp: new Date()
+        timestamp: (new Date).getTime(),
+        room: 'test_garage',
+        user: 'test_user'
       }
       // push to endpoint
       // publishMessage('slurpBoxMeasures', payload)
