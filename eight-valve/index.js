@@ -1,7 +1,29 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 
+function myTimer() {
+       var d = new Date()
+       if (d.getMinutes() == 0) {
+       console.log("full hour");
+       }
+}
+
+var shouldText = true;
 Bleacon.startScanning();
+
+setInterval(function() {
+  var d = new Date()
+  console.log('checking time')
+  if (d.getMinutes() === 0) {
+    console.log("full hour");
+    if (d.getHours() > 20 || d.getHours < 10) {
+      shouldText = false;
+    } else {
+      shouldText = !shouldText;
+    }
+    Bleacon.startScanning();
+  }
+}, 60000)
 
 var major = [];
 var minor = [];
@@ -43,7 +65,8 @@ Bleacon.on('discover', function(bleacon) {
         avgTemp: calcAvgTemp,
         timestamp: (new Date).getTime(),
         room: 'test_garage',
-        user: 'test_user'
+        user: 'test_user',
+        shouldText: shouldText
       }
       // push to endpoint
       // publishMessage('slurpBoxMeasures', payload)
