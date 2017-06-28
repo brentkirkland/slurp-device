@@ -6,36 +6,30 @@ const pubsub = PubSub({
 });
 
 Bleacon.startScanning();
-console.log('wtfffff>>>>>>>')
-// function publishMessage (topicName, data) {
-//
-//   // References an existing topic, e.g. "my-topic"
-//   const topic = pubsub.topic(topicName);
-//
-//   return topic.publish(data)
-//     .then((results) => {
-//       const messageIds = results[0];
-//       console.log(`Message ${messageIds[0]} published.`);
-//       return messageIds;
-//     });
-// }
+
+function publishMessage (topicName, data) {
+
+  // References an existing topic, e.g. "my-topic"
+  const topic = pubsub.topic(topicName);
+
+  return topic.publish(data)
+    .then((results) => {
+      const messageIds = results[0];
+      console.log(`Message ${messageIds[0]} published.`);
+      return messageIds;
+    });
+}
 
 var major = [];
 var minor = [];
 
-console.log('wtfffff>>>>>>>')
-
-
 Bleacon.on('discover', function(bleacon) {
-
-  console.log('bleacon discovering')
 
   var bleaconMajorHex = bleacon.major.toString(16);
   var bleaconMinorHex = bleacon.minor.toString(16);
 
   if (major.includes(bleaconMajorHex)) {
     if (major.length === 8) {
-      console.log('found eight devices')
       Bleacon.stopScanning();
       var avgTemp = 0;
       var readings = [];
@@ -59,7 +53,6 @@ Bleacon.on('discover', function(bleacon) {
         }
         readings.push(data)
       }
-      console.log(readings)
       var calcAvgTemp = (avgTemp / 8).toFixed(2);
 
       var payload = {
@@ -68,8 +61,7 @@ Bleacon.on('discover', function(bleacon) {
         timestamp: new Date()
       }
 
-      console.log(payload)
-      // publishMessage('slurpBoxMeasures', payload)
+      publishMessage('slurpBoxMeasures', payload)
 
     }
   } else {
