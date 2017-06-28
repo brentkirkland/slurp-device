@@ -50,10 +50,12 @@ Bleacon.on('discover', function(bleacon) {
         mode: 'cors',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
       }
+
+      console.log(data)
 
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
