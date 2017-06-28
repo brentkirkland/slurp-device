@@ -7,7 +7,7 @@ const pubsub = PubSub({
 });
 
 Bleacon.startScanning();
-
+console.log('wtfffff>>>>>>>')
 function publishMessage (topicName, data) {
 
   // References an existing topic, e.g. "my-topic"
@@ -23,6 +23,10 @@ function publishMessage (topicName, data) {
 
 var major = [];
 var minor = [];
+
+console.log('wtfffff>>>>>>>')
+
+
 Bleacon.on('discover', function(bleacon) {
 
   console.log('bleacon discovering')
