@@ -52,13 +52,13 @@ Bleacon.on('discover', function(bleacon) {
         }
         readings.push(data)
       }
-
+      console.log(readings)
       var calcAvgTemp = (avgTemp / 8).toFixed(2);
 
       var payload = {
         readings: readings,
         avgTemp: calcAvgTemp,
-        timestamp: Date.now()
+        timestamp: new Date()
       }
 
       console.log(payload)
