@@ -35,14 +35,17 @@ Bleacon.on('discover', function(bleacon) {
       var readings = [];
       for (var i = 0; i < major.length; i++) {
         var temp;
+        var moisture;
         if (minor[i].length === 4) {
           temp = minor[i][2] + minor[i][3];
+          moisture = minor[i][0] + minor[i][1];
         } else {
           temp = minor[i][1] + minor[i][2];
+          moisture = minor[i][0];
         }
         var fahren = parseInt(temp, 16) * 9 / 5 + 32;
         avgTemp += fahren;
-        var moisture = minor[i][0] + minor[i][1];
+
 
         var data = {
           minor: minor[i],
