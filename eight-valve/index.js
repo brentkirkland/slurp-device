@@ -9,7 +9,7 @@ function myTimer() {
 }
 
 var shouldText = true;
-Bleacon.startScanning();
+// Bleacon.startScanning();
 
 setInterval(function() {
   var d = new Date()
