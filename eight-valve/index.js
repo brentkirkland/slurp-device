@@ -25,11 +25,14 @@ var major = [];
 var minor = [];
 Bleacon.on('discover', function(bleacon) {
 
+  console.log('bleacon discovering')
+
   var bleaconMajorHex = bleacon.major.toString(16);
   var bleaconMinorHex = bleacon.minor.toString(16);
 
   if (major.includes(bleaconMajorHex)) {
     if (major.length === 8) {
+      console.log('found eight devices')
       Bleacon.stopScanning();
       var avgTemp = 0;
       var readings = [];
@@ -48,7 +51,8 @@ Bleacon.on('discover', function(bleacon) {
           minor: minor[i],
           major: major[i],
           celcius: temp,
-          fahrenheit: fahren
+          fahrenheit: fahren,
+          moisture: moisture
         }
         readings.push(data)
       }
