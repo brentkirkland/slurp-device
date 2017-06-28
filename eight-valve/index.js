@@ -61,6 +61,7 @@ Bleacon.on('discover', function(bleacon) {
         timestamp: Date.now()
       }
 
+      console.log(payload)
       publishMessage('slurpBoxMeasures', payload)
 
     }
