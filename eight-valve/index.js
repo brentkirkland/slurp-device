@@ -30,9 +30,9 @@ Bleacon.on('discover', function(bleacon) {
         var data = {
           minor: minor[i],
           major: major[i],
-          celcius: temp,
+          celcius: parseInt(temp, 16),
           fahrenheit: fahren,
-          moisture: moisture
+          moisture: parseInt(moisture, 16)
         }
         readings.push(data)
       }
