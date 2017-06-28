@@ -65,7 +65,7 @@ Bleacon.on('discover', function(bleacon) {
         avgTemp: calcAvgTemp,
         timestamp: (new Date).getTime(),
         room_id: 'test_garage',
-        room_nickname: 'Test Garage'
+        room_nickname: 'Test Garage',
         user_id: 'test_user',
         shouldText: shouldText
       }
