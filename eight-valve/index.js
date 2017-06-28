@@ -1,9 +1,9 @@
 var Bleacon = require('bleacon');
 const PubSub = require('@google-cloud/pubsub');
-const projectId = 'slurp-165217';
-const pubsub = PubSub({
-  projectId: projectId
-});
+// const projectId = 'slurp-165217';
+// const pubsub = PubSub({
+//   projectId: projectId
+// });
 
 Bleacon.startScanning();
 
@@ -61,7 +61,7 @@ Bleacon.on('discover', function(bleacon) {
         timestamp: new Date()
       }
 
-      publishMessage('slurpBoxMeasures', payload)
+      // publishMessage('slurpBoxMeasures', payload)
 
     }
   } else {
