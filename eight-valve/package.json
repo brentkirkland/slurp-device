@@ -9,7 +9,6 @@
   "author": "Brent Kirkland",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/pubsub": "^0.13.0",
     "bleacon": "^0.5.1"
   }
 }

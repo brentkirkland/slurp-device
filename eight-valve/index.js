@@ -1,10 +1,5 @@
 var Bleacon = require('bleacon');
-var PubSub = require('@google-cloud/pubsub');
-var projectId = 'slurp-165217';
-var pubsub = PubSub({
-  projectId: projectId
-});
-console.log('done')
+
 Bleacon.startScanning();
 
 var major = [];
@@ -61,7 +56,7 @@ Bleacon.on('discover', function(bleacon) {
 
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
-
+      .then(res => console.log(res))
     }
   } else {
     major.push(bleaconMajorHex);
