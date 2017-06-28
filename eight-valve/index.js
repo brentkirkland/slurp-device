@@ -1,4 +1,5 @@
 var Bleacon = require('bleacon');
+var fetch = require('node-fetch');
 
 Bleacon.startScanning();
 
@@ -51,7 +52,7 @@ Bleacon.on('discover', function(bleacon) {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'payload=' + payload
+        body: JSON.stringify(payload)
       }
 
       // TODO: Better error handling

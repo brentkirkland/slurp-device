@@ -9,6 +9,7 @@
   "author": "Brent Kirkland",
   "license": "ISC",
   "dependencies": {
-    "bleacon": "^0.5.1"
+    "bleacon": "^0.5.1",
+    "node-fetch": "^1.7.1"
   }
 }
