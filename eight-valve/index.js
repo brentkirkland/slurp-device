@@ -1,15 +1,8 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 
-function myTimer() {
-       var d = new Date()
-       if (d.getMinutes() == 0) {
-       console.log("full hour");
-       }
-}
-
-var shouldText = true;
-
+var shouldText = false;
+Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0 && d.getHours()) {
@@ -56,18 +49,24 @@ Bleacon.on('discover', function(bleacon) {
           major: major[i],
           celcius: parseInt(temp, 16),
           fahrenheit: fahren,
-          moisture: parseInt(moisture, 16)
+          moisture: parseInt(moisture, 16),
+          lastWatered: '--',
+          watered: false,
+          device_nickname: major[i]
         }
         readings.push(data)
       }
       var calcAvgTemp = (avgTemp / 8).toFixed(2);
 
+      //TODO: make everything camel case
+
       var payload = {
         readings: readings,
         avgTemp: calcAvgTemp,
         timestamp: (new Date).getTime(),
-        room: 'test_garage',
-        user: 'test_user',
+        room_id: 'test_garage',
+        room_nickname: 'Test Garage'
+        user_id: 'test_user',
         shouldText: shouldText
       }
       // push to endpoint
@@ -86,7 +85,7 @@ Bleacon.on('discover', function(bleacon) {
 
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
-      .then(res => console.log(res))
+        .then(res => console.log(res))
     }
   } else {
     major.push(bleaconMajorHex);
