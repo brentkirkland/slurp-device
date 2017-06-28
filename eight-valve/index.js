@@ -1,10 +1,9 @@
 var Bleacon = require('bleacon');
-// const PubSub = require('@google-cloud/pubsub');
-// const projectId = 'slurp-165217';
-// const pubsub = PubSub({
-//   projectId: projectId,
-//   retries: 5
-// });
+const PubSub = require('@google-cloud/pubsub');
+const projectId = 'slurp-165217';
+const pubsub = PubSub({
+  projectId: projectId
+});
 
 Bleacon.startScanning();
 console.log('wtfffff>>>>>>>')
