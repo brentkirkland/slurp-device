@@ -1,7 +1,7 @@
 var Bleacon = require('bleacon');
-const PubSub = require('@google-cloud/pubsub');
-const projectId = 'slurp-165217';
-const pubsub = PubSub({
+var PubSub = require('@google-cloud/pubsub');
+var projectId = 'slurp-165217';
+var pubsub = PubSub({
   projectId: projectId
 });
 console.log('done')
