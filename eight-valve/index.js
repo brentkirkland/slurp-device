@@ -1,25 +1,25 @@
 var Bleacon = require('bleacon');
-const PubSub = require('@google-cloud/pubsub');
-const projectId = 'slurp-165217';
-const pubsub = PubSub({
-  projectId: projectId,
-  retries: 5
-});
+// const PubSub = require('@google-cloud/pubsub');
+// const projectId = 'slurp-165217';
+// const pubsub = PubSub({
+//   projectId: projectId,
+//   retries: 5
+// });
 
 Bleacon.startScanning();
 console.log('wtfffff>>>>>>>')
-function publishMessage (topicName, data) {
-
-  // References an existing topic, e.g. "my-topic"
-  const topic = pubsub.topic(topicName);
-
-  return topic.publish(data)
-    .then((results) => {
-      const messageIds = results[0];
-      console.log(`Message ${messageIds[0]} published.`);
-      return messageIds;
-    });
-}
+// function publishMessage (topicName, data) {
+//
+//   // References an existing topic, e.g. "my-topic"
+//   const topic = pubsub.topic(topicName);
+//
+//   return topic.publish(data)
+//     .then((results) => {
+//       const messageIds = results[0];
+//       console.log(`Message ${messageIds[0]} published.`);
+//       return messageIds;
+//     });
+// }
 
 var major = [];
 var minor = [];
@@ -70,7 +70,7 @@ Bleacon.on('discover', function(bleacon) {
       }
 
       console.log(payload)
-      publishMessage('slurpBoxMeasures', payload)
+      // publishMessage('slurpBoxMeasures', payload)
 
     }
   } else {
