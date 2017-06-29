@@ -5,7 +5,7 @@ var shouldText = false;
 Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
-  if (d.getMinutes() === 0 && d.getHours()) {
+  if (d.getMinutes() === 0) {
     console.log("full hour");
     if (d.getHours() > 20 || d.getHours < 10) {
       shouldText = false;
