@@ -15,9 +15,10 @@ setInterval(function() {
       } else {
         shouldText = false;
       }
-      console.log('hour', d.getHours())
+
       console.log('shouldtext', shouldText)
     }
+    console.log('hour', d.getHours())
     Bleacon.startScanning();
   }
 }, 60000)
