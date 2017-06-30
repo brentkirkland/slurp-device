@@ -89,8 +89,8 @@ Bleacon.on('discover', function(bleacon) {
 
       console.log(data)
 
-      var major = [];
-      var minor = [];
+      major = [];
+      minor = [];
 
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
