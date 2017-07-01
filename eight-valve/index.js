@@ -1,23 +1,24 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 
-var shouldText = false;
-Bleacon.startScanning();
+var shouldText = true;
+// Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
-  if (d.getMinutes() === 0) {
-    console.log("full hour");
-    if (d.getHours() > 22 || d.getHours() < 10) {
-      shouldText = false;
-    } else {
-      if (d.getHours() % 2 === 0) {
-        shouldText = true;
-      } else {
-        shouldText = false;
-      }
-
-      console.log('shouldtext', shouldText)
-    }
+  if (d.getMinutes() === 10 || d.getMinutes() === 14 || d.getMinutes() === 18) {
+    // console.log("full hour");
+    // if (d.getHours() > 22 || d.getHours() < 10) {
+    //   shouldText = false;
+    // } else {
+    //   if (d.getHours() % 2 === 0) {
+    //     shouldText = true;
+    //   } else {
+    //     shouldText = false;
+    //   }
+    //
+    //   console.log('shouldtext', shouldText)
+    // }
+    // shouldText = true;
     console.log('hour', d.getHours())
     Bleacon.startScanning();
   }
