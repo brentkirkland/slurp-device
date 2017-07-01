@@ -5,22 +5,13 @@ var shouldText = true;
 // Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
-  if (d.getHours() === 10 || d.getHours() === 14 || d.getHours() === 18) {
-    // console.log("full hour");
-    // if (d.getHours() > 22 || d.getHours() < 10) {
-    //   shouldText = false;
-    // } else {
-    //   if (d.getHours() % 2 === 0) {
-    //     shouldText = true;
-    //   } else {
-    //     shouldText = false;
-    //   }
-    //
-    //   console.log('shouldtext', shouldText)
-    // }
-    // shouldText = true;
-    console.log('hour', d.getHours())
-    Bleacon.startScanning();
+  if (d.getMinutes() === 0) {
+    console.log("full hour");
+    if (d.getHours() === 10 || d.getHours() === 14 || d.getHours() === 18) {
+      Bleacon.startScanning();
+    } else {
+      //check something out
+    }
   }
 }, 60000)
 
