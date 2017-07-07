@@ -14,6 +14,7 @@ setInterval(function() {
   if (d.getMinutes() === 0) {
     console.log("full hour");
     if (d.getHours() === 10 || d.getHours() === 14 || d.getHours() === 18) {
+      gotEight = false;
       Bleacon.startScanning();
     } else {
       //check something out
@@ -74,7 +75,7 @@ Bleacon.on('discover', function(bleacon) {
           moisture: parseInt(moisture, 16),
           lastWatered: '--',
           watered: false,
-          device_nickname: major[i],
+          device_nickname: switched_major,
           uuid: bleacon_data[i].uuid,
           measuredPower: bleacon_data[i].measuredPower,
           rssi: bleacon_data[i].rssi,
@@ -115,8 +116,8 @@ Bleacon.on('discover', function(bleacon) {
       bleacon_data = [];
 
       // TODO: Better error handling
-      // fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
-      //   .then(res => console.log(res))
+      fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
+        .then(res => console.log(res))
     }
   } else {
     major.push(bleaconMajorHex);
