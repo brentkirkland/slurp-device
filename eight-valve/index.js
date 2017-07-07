@@ -65,7 +65,7 @@ Bleacon.on('discover', function(bleacon) {
         if (major[i].length === 4) {
           switched_major = major[i][2] + major[i][3] + major[i][0] + major[i][1]
         } else if (major[i].length === 3) {
-          switched_major = '0' + major[i][2] + major[i][0] + major[i][1]
+          switched_major = major[i][1] + major[i][2] + '0' + major[i][0]
         }
         var data = {
           minor: minor[i],
