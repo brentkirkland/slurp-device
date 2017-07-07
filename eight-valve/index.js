@@ -2,7 +2,7 @@ var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 
 var shouldText = false;
-// Bleacon.startScanning();
+Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
