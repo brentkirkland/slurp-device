@@ -62,9 +62,9 @@ Bleacon.on('discover', function(bleacon) {
         // Major is reveresed from device, switch it around so it doesn't confuse others
         var switched_major;
         if (major[i].length === 4) {
-          switched_major = minor[i][2] + minor[i][3] + minor[i][0] + minor[i][1]
+          switched_major = major[i][2] + major[i][3] + major[i][0] + major[i][1]
         } else if (major[i].length === 3) {
-          switched_major = '0' + minor[i][2] + minor[i][0] + minor[i][1]
+          switched_major = '0' + major[i][2] + major[i][0] + major[i][1]
         }
         var data = {
           minor: minor[i],
