@@ -1,7 +1,7 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 
-var shouldText = true;
+var shouldText = false;
 // Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
@@ -22,6 +22,7 @@ Bleacon.on('discover', function(bleacon) {
 
   var bleaconMajorHex = bleacon.major.toString(16);
   var bleaconMinorHex = bleacon.minor.toString(16);
+  console.log(bleacon)
 
   if (major.includes(bleaconMajorHex)) {
     if (major.length === 8) {
