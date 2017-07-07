@@ -5,10 +5,10 @@ var fetch = require('node-fetch');
 var gotEight = false;
 
 //should text tells twilio to send message. False is helpful for debug
-var shouldText = false;
+var shouldText = true;
 
 // uncomment the following line to text not on the hour
-Bleacon.startScanning();
+// Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
