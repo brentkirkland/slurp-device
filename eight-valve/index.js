@@ -13,7 +13,7 @@ setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
     console.log("full hour");
-    if (d.getHours() === 10 || d.getHours() === 14 || d.getHours() === 18) {
+    if (d.getHours() === 9 || d.getHours() === 13 || d.getHours() === 17 || d.getHours() === 21) {
       gotEight = false;
       Bleacon.startScanning();
     } else {
