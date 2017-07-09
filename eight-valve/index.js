@@ -6,7 +6,7 @@ var gotEight = false;
 
 //should text tells twilio to send message. False is helpful for debug
 var shouldText = true;
-var test = 0x02;
+
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
