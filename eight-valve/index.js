@@ -91,7 +91,6 @@ function checkForWatering (readings) {
   readings.map(function(plant, index) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
-      waterSettings.overall.count -= 1;
       if (waterSettings.overall.count !== 0) {
         waterSettings.overall.count -= 1;
       }
