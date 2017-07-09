@@ -19,7 +19,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: ​​0x08
+    valve: "​​0x08"
   },
   d50b: {
     watering: false,
@@ -27,7 +27,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x40
+    valve: "​​0x40"
   },
   d50c: {
     watering: false,
@@ -35,7 +35,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x01
+    valve: "​​0x01"
   },
   d50e: {
     watering: false,
@@ -43,7 +43,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x10
+    valve: "​​0x10"
   },
   d510: {
     watering: false,
@@ -51,7 +51,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x02
+    valve: "​​0x02"
   },
   d511: {
     watering: false,
@@ -59,7 +59,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x20
+    valve: "​​0x20"
   },
   d512: {
     watering: false,
@@ -67,7 +67,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: ​​0x04
+    valve: "​​0x04"
   },
   d513: {
     watering: false,
@@ -75,7 +75,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: ​​0x80
+    valve: "​​0x80"
   },
 }
 
