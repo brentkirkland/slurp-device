@@ -25,53 +25,66 @@ setInterval(function() {
 
 // this will be pulled from server eventually
 var waterSettings = {
+  overall: {
+    watering: false,
+    count: 0,
+  }
   d50a: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: true
+    off: true,
+    time: 30000,
+    hexValve:
   },
   d50b: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d50c: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d50e: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d510: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d511: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d512: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: false,
+    time: 30000
   },
   d513: {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: false
+    off: true,
+    time: 30000
   },
 }
 
@@ -79,11 +92,22 @@ function checkForWatering (readings) {
   readings.map(function(plant, index) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
+      waterSettings.overall.count -= 1;
+      if (waterSettings.overall.count !== 0) {
+        waterSettings.overall.count -= 1;
+      }
+      if (waterSettings.overall.count === 0) {
+        waterSettings.overall.watering = false;
+      }
+      console.log('Not watering: ', plant.major)
     } else if (plant.moisture < waterSettings[plant.major].minMoisture) {
       waterSettings[plant.major].watering = true;
+      waterSettings.overall.watering = true;
+      waterSettings.overall.count += 1;
+      console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major,)
+
     }
   })
-  console.log(waterSettings)
 }
 
 
