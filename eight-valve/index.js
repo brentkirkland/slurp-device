@@ -17,7 +17,7 @@ var waterSettings = {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
-    off: true,
+    off: false,
     time: 30000,
     valve: "​​0x08"
   },
@@ -129,7 +129,8 @@ function checkForWatering (readings) {
       waterSettings.overall.inProgress.push(plant.major)
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
       cycle(waterSettings[plant.major].valve, waterSettings[plant.major].time)
-
+      readings[index].watered = true;
+      readings[index].lastWatered = (new Date).getTime();
     } else {
       console.log ('In cycle down: ', plant.major)
     }
@@ -198,6 +199,9 @@ Bleacon.on('discover', function(bleacon) {
         }
         readings.push(data)
       }
+
+      checkForWatering(readings)
+
       var calcAvgTemp = (avgTemp / 8).toFixed(2);
 
       //TODO: make everything camel case
@@ -229,7 +233,6 @@ Bleacon.on('discover', function(bleacon) {
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
         .then(res => console.log(res))
 
-      checkForWatering(readings)
     }
   } else {
     major.push(bleaconMajorHex);
