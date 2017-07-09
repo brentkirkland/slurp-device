@@ -33,7 +33,7 @@ var waterSettings = {
     watering: false,
     minMoisture: 45,
     maxMoisture: 80,
-    off: true,
+    off: false,
     time: 30000,
     hexValve:
   },
