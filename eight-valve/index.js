@@ -27,7 +27,7 @@ setInterval(function() {
 var waterSettings = {
   overall: {
     watering: false,
-    count: 0,
+    count: 0
   },
   d50a: {
     watering: false,
@@ -35,7 +35,6 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    hexValve:
   },
   d50b: {
     watering: false,
