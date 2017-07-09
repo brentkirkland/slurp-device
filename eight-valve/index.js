@@ -5,7 +5,7 @@ var fetch = require('node-fetch');
 var gotEight = false;
 
 //should text tells twilio to send message. False is helpful for debug
-var shouldText = true;
+var shouldText = false;
 
 // uncomment the following line to text not on the hour
 // Bleacon.startScanning();
@@ -21,6 +21,70 @@ setInterval(function() {
     }
   }
 }, 60000)
+
+
+// this will be pulled from server eventually
+var waterSettings = {
+  d50a: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: true
+  },
+  d50b: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d50c: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d50e: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d510: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d511: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d512: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+  d513: {
+    watering: false,
+    minMoisture: 45,
+    maxMoisture: 80,
+    off: false
+  },
+}
+
+function checkForWatering (readings) {
+  readings.map(function(plant, index) {
+    if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
+      waterSettings[plant.major] = false;
+    } else if (plant.moisture < waterSettings[plant.major].minMoisture) {
+      waterSettings[plant.major] = true;
+    }
+  })
+  console.log(waterSettings)
+}
 
 
 // TODO: Make this one array
@@ -118,6 +182,7 @@ Bleacon.on('discover', function(bleacon) {
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
         .then(res => console.log(res))
+      checkForWatering(readings)
     }
   } else {
     major.push(bleaconMajorHex);
