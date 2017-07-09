@@ -103,7 +103,7 @@ function checkForWatering (readings) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
       waterSettings.overall.count += 1;
-      console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major,)
+      console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
 
     }
   })
