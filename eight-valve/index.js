@@ -8,7 +8,7 @@ var gotEight = false;
 var shouldText = false;
 
 // uncomment the following line to text not on the hour
-// Bleacon.startScanning();
+Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
