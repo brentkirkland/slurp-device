@@ -19,7 +19,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: "​​0x08"
+    valve: "​​0x08",
+    lastWatered: '--'
   },
   d50b: {
     watering: false,
@@ -27,7 +28,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x40"
+    valve: "​​0x40",
+    lastWatered: '--'
   },
   d50c: {
     watering: false,
@@ -35,7 +37,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x01"
+    valve: "​​0x01",
+    lastWatered: '--'
   },
   d50e: {
     watering: false,
@@ -43,7 +46,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x10"
+    valve: "​​0x10",
+    lastWatered: '--'
   },
   d510: {
     watering: false,
@@ -51,7 +55,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x02"
+    valve: "​​0x02",
+    lastWatered: '--'
   },
   d511: {
     watering: false,
@@ -59,7 +64,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x20"
+    valve: "​​0x20",
+    lastWatered: '--'
   },
   d512: {
     watering: false,
@@ -67,7 +73,8 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x04"
+    valve: "​​0x04",
+    lastWatered: '--'
   },
   d513: {
     watering: false,
@@ -75,12 +82,13 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: "​​0x80"
+    valve: "​​0x80",
+    lastWatered: '--'
   },
 }
 
 // uncomment the following line to text not on the hour
-// Bleacon.startScanning();
+Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
@@ -130,7 +138,9 @@ function checkForWatering (readings) {
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
       cycle(waterSettings[plant.major].valve, waterSettings[plant.major].time)
       readings[index].watered = true;
-      readings[index].lastWatered = (new Date).getTime();
+      var currentWaterTime = (new Date).getTime();
+      readings[index].lastWatered = currentWaterTime;
+      waterSettings[plant.major].lastWatered = currentWaterTime;
     } else {
       console.log ('In cycle down: ', plant.major)
     }
@@ -188,7 +198,7 @@ Bleacon.on('discover', function(bleacon) {
           celcius: parseInt(temp, 16),
           fahrenheit: fahren,
           moisture: parseInt(moisture, 16),
-          lastWatered: '--',
+          lastWatered: waterSettings[switched_major].lastWatered,
           watered: false,
           device_nickname: switched_major,
           uuid: bleacon_data[i].uuid,
