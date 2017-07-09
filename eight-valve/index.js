@@ -7,22 +7,6 @@ var gotEight = false;
 //should text tells twilio to send message. False is helpful for debug
 var shouldText = false;
 
-// uncomment the following line to text not on the hour
-Bleacon.startScanning();
-setInterval(function() {
-  var d = new Date()
-  if (d.getMinutes() === 0) {
-    console.log("full hour");
-    if (d.getHours() === 9 || d.getHours() === 13 || d.getHours() === 17 || d.getHours() === 21) {
-      gotEight = false;
-      Bleacon.startScanning();
-    } else {
-      //check something out
-    }
-  }
-}, 60000)
-
-
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
@@ -33,59 +17,99 @@ var waterSettings = {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
-    off: false,
+    off: true,
     time: 30000,
+    valve: ​​0x08
   },
   d50b: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x40
   },
   d50c: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x01
   },
   d50e: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x10
   },
   d510: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x02
   },
   d511: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x20
   },
   d512: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000
+    time: 30000,
+    valve: ​​0x04
   },
   d513: {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
     off: true,
-    time: 30000
+    time: 30000,
+    valve: ​​0x80
   },
 }
+
+// uncomment the following line to text not on the hour
+Bleacon.startScanning();
+setInterval(function() {
+  var d = new Date()
+  if (d.getMinutes() === 0) {
+    console.log("full hour");
+    gotEight = false;
+    major = [];
+    minor = [];
+    bleacon_data = [];
+    if (waterSettings.overall.watering) {
+      Bleacon.startScanning();
+    } else if (d.getHours() === 9 || d.getHours() === 13 || d.getHours() === 17 || d.getHours() === 21) {
+      Bleacon.startScanning();
+    } else {
+      //check something out
+    }
+  }
+}, 60000)
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function cycle(valve, time) {
+  // wire.writeBytes(0x09, [valve], function(err) {});
+  console.log('valve:', valve);
+  await sleep(time);
+}
+
+
 
 function checkForWatering (readings) {
   readings.map(function(plant, index) {
@@ -93,7 +117,10 @@ function checkForWatering (readings) {
       waterSettings[plant.major].watering = false;
       var index = waterSettings.overall.inProgress.indexOf(plant.major)
       if (index > -1) {
-         waterSettings.overall.inProgress.split(index, 1)
+         waterSettings.overall.inProgress.splice(index, 1)
+      }
+      if (waterSettings.overall.inProgress.length === 0) {
+        waterSettings.overall.watering = false;
       }
       console.log('Not watering: ', plant.major)
     } else if (plant.moisture < waterSettings[plant.major].minMoisture) {
@@ -101,6 +128,8 @@ function checkForWatering (readings) {
       waterSettings.overall.watering = true;
       waterSettings.overall.inProgress.push(plant.major)
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
+      cycle(waterSettings[plant.major].valve, waterSettings[plant.major].time)
+
     } else {
       console.log ('In cycle down: ', plant.major)
     }
@@ -122,7 +151,6 @@ Bleacon.on('discover', function(bleacon) {
   if (major.includes(bleaconMajorHex)) {
     if (major.length === 8 && !gotEight) {
       gotEight = true;
-
       // stop the scanning!
       Bleacon.stopScanning();
 
@@ -197,13 +225,10 @@ Bleacon.on('discover', function(bleacon) {
 
       console.log(data)
 
-      major = [];
-      minor = [];
-      bleacon_data = [];
-
       // TODO: Better error handling
       fetch('https://us-central1-slurp-165217.cloudfunctions.net/pubEndpoint?topic=processMeasures', data)
         .then(res => console.log(res))
+
       checkForWatering(readings)
     }
   } else {
