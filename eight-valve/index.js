@@ -103,10 +103,12 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function cycle(valve, time) {
+function cycle(valve, time) {
+  // DONT FORGET TO CLEAR THE REGISTER
   // wire.writeBytes(0x09, [valve], function(err) {});
   console.log('valve:', valve);
-  await sleep(time);
+  // SETTIMEOUT FUNCTION
+  // await sleep(time);
 }
 
 function checkForWatering (readings) {
