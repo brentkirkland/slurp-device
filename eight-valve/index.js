@@ -27,60 +27,60 @@ setInterval(function() {
 var waterSettings = {
   overall: {
     watering: false,
-    count: 0
+    inProgress: []
   },
   d50a: {
     watering: false,
-    minMoisture: 50,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000,
   },
   d50b: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d50c: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d50e: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d510: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d511: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d512: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: false,
     time: 30000
   },
   d513: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 48,
     maxMoisture: 80,
     off: true,
     time: 30000
@@ -91,17 +91,15 @@ function checkForWatering (readings) {
   readings.map(function(plant, index) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
-      if (waterSettings.overall.count !== 0 && !waterSettings[plant.major].off) {
-        waterSettings.overall.count -= 1;
-      }
-      if (waterSettings.overall.count === 0 && !waterSettings[plant.major].off) {
-        waterSettings.overall.watering = false;
+      var index = waterSettings.overall.inProgress.indexOf(plant.major)
+      if (index > -1) {
+         waterSettings.overall.inProgress.split(index, 1)
       }
       console.log('Not watering: ', plant.major)
     } else if (plant.moisture < waterSettings[plant.major].minMoisture) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
-      waterSettings.overall.count += 1;
+      waterSettings.overall.inProgress.push(plant.major)
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
     } else {
       console.log ('In cycle down: ', plant.major)
