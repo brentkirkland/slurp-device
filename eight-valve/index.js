@@ -28,7 +28,7 @@ var waterSettings = {
   overall: {
     watering: false,
     count: 0,
-  }
+  },
   d50a: {
     watering: false,
     minMoisture: 45,
