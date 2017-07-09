@@ -31,7 +31,7 @@ var waterSettings = {
   },
   d50a: {
     watering: false,
-    minMoisture: 45,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 30000,
@@ -91,10 +91,10 @@ function checkForWatering (readings) {
   readings.map(function(plant, index) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
-      if (waterSettings.overall.count !== 0) {
+      if (waterSettings.overall.count !== 0 && !waterSettings[plant.major].off) {
         waterSettings.overall.count -= 1;
       }
-      if (waterSettings.overall.count === 0) {
+      if (waterSettings.overall.count === 0 && !waterSettings[plant.major].off) {
         waterSettings.overall.watering = false;
       }
       console.log('Not watering: ', plant.major)
