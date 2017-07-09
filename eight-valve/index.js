@@ -17,7 +17,7 @@ var waterSettings = {
     watering: false,
     minMoisture: 48,
     maxMoisture: 80,
-    off: false,
+    off: true,
     time: 30000,
     valve: "​​0x08"
   },
@@ -80,7 +80,7 @@ var waterSettings = {
 }
 
 // uncomment the following line to text not on the hour
-Bleacon.startScanning();
+// Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
@@ -108,8 +108,6 @@ async function cycle(valve, time) {
   console.log('valve:', valve);
   await sleep(time);
 }
-
-
 
 function checkForWatering (readings) {
   readings.map(function(plant, index) {
