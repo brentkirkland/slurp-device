@@ -1,11 +1,14 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
-
+var i2c = require('i2c');
+var address = 0x20;
+var wire = new i2c(address, {device: '/dev/i2c-1'});
+wire.writeBytes(0x00, [0x00], function(err) {});
 //gotEight helps prevent race condition of sending multiple messages
 var gotEight = false;
 
 //should text tells twilio to send message. False is helpful for debug
-var shouldText = true;
+var shouldText = false;
 
 // this will be pulled from server eventually
 var waterSettings = {
@@ -19,7 +22,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: "​​0x08",
+    valve: "0x08",
     lastWatered: '--'
   },
   d50b: {
@@ -28,7 +31,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x40",
+    valve: "0x40",
     lastWatered: '--'
   },
   d50c: {
@@ -37,7 +40,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x01",
+    valve: "0x01",
     lastWatered: '--'
   },
   d50e: {
@@ -46,7 +49,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x10",
+    valve: "0x10",
     lastWatered: '--'
   },
   d510: {
@@ -55,7 +58,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x02",
+    valve: "0x02",
     lastWatered: '--'
   },
   d511: {
@@ -64,7 +67,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x20",
+    valve: "0x20",
     lastWatered: '--'
   },
   d512: {
@@ -73,7 +76,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: false,
     time: 30000,
-    valve: "​​0x04",
+    valve: "0x04",
     lastWatered: '--'
   },
   d513: {
@@ -82,7 +85,7 @@ var waterSettings = {
     maxMoisture: 80,
     off: true,
     time: 30000,
-    valve: "​​0x80",
+    valve: "0x80",
     lastWatered: '--'
   },
 }
@@ -111,9 +114,11 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function cycle(valve, time) {
-  // DONT FORGET TO CLEAR THE REGISTER
-  // wire.writeBytes(0x09, [valve], function(err) {});
+function cycle(valve) {
+  // DONT FORGET TO CLEAR THE REGISTEiR
+  // CONVERT VALVE TO STRING
+  console.log('im watering', valve);
+  wire.writeBytes(0x09, [parseInt(valve,16)], function(err) {});
   console.log('valve:', valve);
   // SETTIMEOUT FUNCTION
   // await sleep(time);
@@ -136,7 +141,12 @@ function checkForWatering (readings) {
       waterSettings.overall.watering = true;
       waterSettings.overall.inProgress.push(plant.major)
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
-      cycle(waterSettings[plant.major].valve, waterSettings[plant.major].time)
+  
+      console.log('should water', waterSettings[plant.major].valve)    
+      setTimeout(function() {
+	cycle(waterSettings[plant.major].valve)
+      }, waterSettings[plant.major].time*waterSettings.overall.inProgress.length);
+
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
@@ -146,6 +156,11 @@ function checkForWatering (readings) {
     }
   })
   console.log(waterSettings)
+  
+  setTimeout(function() {
+      cycle(0x00)
+    }, 3000*(waterSettings.overall.inProgress.length +1));
+
 }
 
 

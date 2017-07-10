@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bleacon": "^0.5.1",
+    "i2c": "^0.2.3",
     "node-fetch": "^1.7.1"
   }
 }
