@@ -99,7 +99,7 @@ var minor = [];
 var bleacon_data = [];
 
 // uncomment the following line to text not on the hour
-//Bleacon.startScanning();
+Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
@@ -150,7 +150,9 @@ function checkForWatering(readings) {
       setTimeout(function() {
         cycle(waterSettings[plant.major].valve)
       }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
-
+      setTimeout(function() {
+        cycle("0x00")
+      }, (waterSettings[plant.major].time - 500) * (waterSettings.overall.inProgress.length + 1));
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
@@ -163,9 +165,9 @@ function checkForWatering(readings) {
   console.log(waterSettings)
 
   // turn off valves
-  setTimeout(function() {
-    cycle(0x00)
-  }, 3000 * (waterSettings.overall.inProgress.length + 1));
+  //setTimeout(function() {
+  //  cycle("0x00")
+  //}, 3000 * (waterSettings.overall.inProgress.length + 1));
 
 }
 
