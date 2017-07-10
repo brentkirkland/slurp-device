@@ -1,14 +1,17 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
 var i2c = require('i2c');
+
 var address = 0x20;
-var wire = new i2c(address, {device: '/dev/i2c-1'});
+var wire = new i2c(address, {
+  device: '/dev/i2c-1'
+});
 wire.writeBytes(0x00, [0x00], function(err) {});
 //gotEight helps prevent race condition of sending multiple messages
 var gotEight = false;
 
 //should text tells twilio to send message. False is helpful for debug
-var shouldText = false;
+var shouldText = true;
 
 // this will be pulled from server eventually
 var waterSettings = {
@@ -90,8 +93,13 @@ var waterSettings = {
   },
 }
 
+// TODO: Make this one array
+var major = [];
+var minor = [];
+var bleacon_data = [];
+
 // uncomment the following line to text not on the hour
-Bleacon.startScanning();
+//Bleacon.startScanning();
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
@@ -105,7 +113,7 @@ setInterval(function() {
     } else if (d.getHours() === 9 || d.getHours() === 13 || d.getHours() === 17 || d.getHours() === 21) {
       Bleacon.startScanning();
     } else {
-      //check something out
+      //check api eventually
     }
   }
 }, 60000)
@@ -115,22 +123,17 @@ function sleep(ms) {
 }
 
 function cycle(valve) {
-  // DONT FORGET TO CLEAR THE REGISTEiR
-  // CONVERT VALVE TO STRING
   console.log('im watering', valve);
-  wire.writeBytes(0x09, [parseInt(valve,16)], function(err) {});
-  console.log('valve:', valve);
-  // SETTIMEOUT FUNCTION
-  // await sleep(time);
+  wire.writeBytes(0x09, [parseInt(valve, 16)], function(err) {});
 }
 
-function checkForWatering (readings) {
+function checkForWatering(readings) {
   readings.map(function(plant, index) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
       var index = waterSettings.overall.inProgress.indexOf(plant.major)
       if (index > -1) {
-         waterSettings.overall.inProgress.splice(index, 1)
+        waterSettings.overall.inProgress.splice(index, 1)
       }
       if (waterSettings.overall.inProgress.length === 0) {
         waterSettings.overall.watering = false;
@@ -140,34 +143,31 @@ function checkForWatering (readings) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
       waterSettings.overall.inProgress.push(plant.major)
+
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
-  
-      console.log('should water', waterSettings[plant.major].valve)    
+
+      console.log('should water', waterSettings[plant.major].valve)
       setTimeout(function() {
-	cycle(waterSettings[plant.major].valve)
-      }, waterSettings[plant.major].time*waterSettings.overall.inProgress.length);
+        cycle(waterSettings[plant.major].valve)
+      }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
 
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
       waterSettings[plant.major].lastWatered = currentWaterTime;
     } else {
-      console.log ('In cycle down: ', plant.major)
+      console.log('In cycle down: ', plant.major)
     }
   })
+
   console.log(waterSettings)
-  
+
+  // turn off valves
   setTimeout(function() {
-      cycle(0x00)
-    }, 3000*(waterSettings.overall.inProgress.length +1));
+    cycle(0x00)
+  }, 3000 * (waterSettings.overall.inProgress.length + 1));
 
 }
-
-
-// TODO: Make this one array
-var major = [];
-var minor = [];
-var bleacon_data = [];
 
 Bleacon.on('discover', function(bleacon) {
 
