@@ -24,7 +24,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: true,
-    time: 30000,
+    time: 20000,
     valve: "0x08",
     lastWatered: '--'
   },
@@ -33,7 +33,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x40",
     lastWatered: '--'
   },
@@ -42,7 +42,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x01",
     lastWatered: '--'
   },
@@ -51,7 +51,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x10",
     lastWatered: '--'
   },
@@ -60,7 +60,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x02",
     lastWatered: '--'
   },
@@ -69,7 +69,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x20",
     lastWatered: '--'
   },
@@ -78,7 +78,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 30000,
+    time: 20000,
     valve: "0x04",
     lastWatered: '--'
   },
@@ -87,7 +87,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: true,
-    time: 30000,
+    time: 20000,
     valve: "0x80",
     lastWatered: '--'
   },
@@ -150,9 +150,10 @@ function checkForWatering(readings) {
       setTimeout(function() {
         cycle(waterSettings[plant.major].valve)
       }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
+      // end watering cycle
       setTimeout(function() {
         cycle("0x00")
-      }, (waterSettings[plant.major].time - 500) * (waterSettings.overall.inProgress.length + 1));
+      }, (waterSettings[plant.major].time - 250) * (waterSettings.overall.inProgress.length + 1));
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
@@ -163,11 +164,6 @@ function checkForWatering(readings) {
   })
 
   console.log(waterSettings)
-
-  // turn off valves
-  //setTimeout(function() {
-  //  cycle("0x00")
-  //}, 3000 * (waterSettings.overall.inProgress.length + 1));
 
 }
 
