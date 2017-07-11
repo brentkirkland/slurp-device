@@ -133,7 +133,7 @@ function checkForWatering(readings) {
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
       if (inProgressIndex > -1) {
-        waterSettings.overall.inProgress.splice(index, 1)
+        waterSettings.overall.inProgress.splice(inProgressIndex, 1)
       }
       if (waterSettings.overall.inProgress.length === 0) {
         waterSettings.overall.watering = false;
