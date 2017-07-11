@@ -17,7 +17,7 @@ var shouldText = true;
 var waterSettings = {
   overall: {
     watering: false,
-    inProgress: [d50e, d511]
+    inProgress: ["d50e", "d511"]
   },
   d50a: {
     watering: false,
