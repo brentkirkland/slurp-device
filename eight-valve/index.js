@@ -21,7 +21,7 @@ var waterSettings = {
   },
   d50a: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: true,
     time: 25000,
@@ -30,7 +30,7 @@ var waterSettings = {
   },
   d50b: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -39,7 +39,7 @@ var waterSettings = {
   },
   d50c: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -48,7 +48,7 @@ var waterSettings = {
   },
   d50e: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -57,7 +57,7 @@ var waterSettings = {
   },
   d510: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -66,7 +66,7 @@ var waterSettings = {
   },
   d511: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -75,7 +75,7 @@ var waterSettings = {
   },
   d512: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: false,
     time: 25000,
@@ -84,7 +84,7 @@ var waterSettings = {
   },
   d513: {
     watering: false,
-    minMoisture: 48,
+    minMoisture: 50,
     maxMoisture: 80,
     off: true,
     time: 25000,
