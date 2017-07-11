@@ -129,20 +129,20 @@ function cycle(valve) {
 
 function checkForWatering(readings) {
   readings.map(function(plant, index) {
-    var index = waterSettings.overall.inProgress.indexOf(plant.major)
+    var inProgressIndex = waterSettings.overall.inProgress.indexOf(plant.major)
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
-      if (index > -1) {
+      if (inProgressIndex > -1) {
         waterSettings.overall.inProgress.splice(index, 1)
       }
       if (waterSettings.overall.inProgress.length === 0) {
         waterSettings.overall.watering = false;
       }
       console.log('Not watering: ', plant.major)
-    } else if (index > -1 || plant.moisture < waterSettings[plant.major].minMoisture) {
+    } else if (inProgressIndex > -1 || plant.moisture < waterSettings[plant.major].minMoisture) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
-      if (index === -1) {
+      if (inProgressIndex === -1) {
         waterSettings.overall.inProgress.push(plant.major)
       }
 
