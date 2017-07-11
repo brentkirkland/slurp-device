@@ -24,7 +24,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: true,
-    time: 20000,
+    time: 25000,
     valve: "0x08",
     lastWatered: '--'
   },
@@ -33,7 +33,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x40",
     lastWatered: '--'
   },
@@ -42,7 +42,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x01",
     lastWatered: '--'
   },
@@ -51,7 +51,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x10",
     lastWatered: '--'
   },
@@ -60,7 +60,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x02",
     lastWatered: '--'
   },
@@ -69,7 +69,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x20",
     lastWatered: '--'
   },
@@ -78,7 +78,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: false,
-    time: 20000,
+    time: 25000,
     valve: "0x04",
     lastWatered: '--'
   },
@@ -87,7 +87,7 @@ var waterSettings = {
     minMoisture: 48,
     maxMoisture: 80,
     off: true,
-    time: 20000,
+    time: 25000,
     valve: "0x80",
     lastWatered: '--'
   },
@@ -129,9 +129,9 @@ function cycle(valve) {
 
 function checkForWatering(readings) {
   readings.map(function(plant, index) {
+    var index = waterSettings.overall.inProgress.indexOf(plant.major)
     if (waterSettings[plant.major].off || plant.moisture > waterSettings[plant.major].maxMoisture) {
       waterSettings[plant.major].watering = false;
-      var index = waterSettings.overall.inProgress.indexOf(plant.major)
       if (index > -1) {
         waterSettings.overall.inProgress.splice(index, 1)
       }
@@ -139,10 +139,12 @@ function checkForWatering(readings) {
         waterSettings.overall.watering = false;
       }
       console.log('Not watering: ', plant.major)
-    } else if (plant.moisture < waterSettings[plant.major].minMoisture) {
+    } else if (index > -1 || plant.moisture < waterSettings[plant.major].minMoisture) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
-      waterSettings.overall.inProgress.push(plant.major)
+      if (index === -1) {
+        waterSettings.overall.inProgress.push(plant.major)
+      }
 
       console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
 
