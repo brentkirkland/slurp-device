@@ -17,7 +17,7 @@ var shouldText = true;
 var waterSettings = {
   overall: {
     watering: false,
-    inProgress: []
+    inProgress: [d50e, d511]
   },
   d50a: {
     watering: false,
@@ -142,20 +142,27 @@ function checkForWatering(readings) {
     } else if (inProgressIndex > -1 || plant.moisture < waterSettings[plant.major].minMoisture) {
       waterSettings[plant.major].watering = true;
       waterSettings.overall.watering = true;
+      console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
+      console.log('should water', waterSettings[plant.major].valve)
       if (inProgressIndex === -1) {
         waterSettings.overall.inProgress.push(plant.major)
+        setTimeout(function() {
+          cycle(waterSettings[plant.major].valve)
+        }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
+        // end watering cycle
+        setTimeout(function() {
+          cycle("0x00")
+        }, (waterSettings[plant.major].time - 250) * (waterSettings.overall.inProgress.length + 1));
+      } else {
+        setTimeout(function() {
+          cycle(waterSettings[plant.major].valve)
+        }, waterSettings[plant.major].time * inProgressIndex);
+        // end watering cycle
+        setTimeout(function() {
+          cycle("0x00")
+        }, (waterSettings[plant.major].time - 250) * (inProgressIndex + 1));
       }
 
-      console.log(waterSettings[plant.major].time / 1000, ' seconds of watering for: ', plant.major)
-
-      console.log('should water', waterSettings[plant.major].valve)
-      setTimeout(function() {
-        cycle(waterSettings[plant.major].valve)
-      }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
-      // end watering cycle
-      setTimeout(function() {
-        cycle("0x00")
-      }, (waterSettings[plant.major].time - 250) * (waterSettings.overall.inProgress.length + 1));
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
