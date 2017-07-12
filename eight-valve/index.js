@@ -69,7 +69,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 11000,
+    time: 6000,
     valve: "0x20",
     lastWatered: '--'
   },
