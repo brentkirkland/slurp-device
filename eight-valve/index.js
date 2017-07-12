@@ -124,15 +124,17 @@ setInterval(function() {
   if (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0) {
     console.log('minute:', d.getMinutes())
     var waittime = 0;
-    waterSettings.overall.inProgress.map(function (device, index) {
+    waterSettings.overall.inProgress.map(function (device, i) {
       setTimeout(function() {
-        console.log(waittime)
         cycle(waterSettings[device].valve)
       }, waittime);
+      console.log('waittime', waittime)
       // end watering cycle
-      if (index === waterSettings.overall.inProgress - 1) {
+      if (i === waterSettings.overall.inProgress - 1) {
+        console.log('will execute turn off')
         setTimeout(function() {
           console.log(waittime)
+          console.log('turning of')
           cycle("0x00")
         }, waittime + waterSettings[device].time);
       }
