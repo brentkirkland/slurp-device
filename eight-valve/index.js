@@ -119,7 +119,7 @@ setInterval(function() {
 
 setInterval(function() {
   var d = new Date()
-  if (waterSettings.overall.watering || (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0)) {
+  if (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
     console.log('minute:', d.getMinutes())
     var waittime = 0;
     waterSettings.overall.inProgress.map(function (device, i) {
