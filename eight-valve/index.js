@@ -16,7 +16,7 @@ var shouldText = true;
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
-    watering: false,
+    watering: true,
     inProgress: ["d50b", "d50e","d510", "d511"]
   },
   d50a: {
@@ -119,7 +119,7 @@ setInterval(function() {
 
 setInterval(function() {
   var d = new Date()
-  if (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0) {
+  if (waterSettings.overall.watering || (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0)) {
     console.log('minute:', d.getMinutes())
     var waittime = 0;
     waterSettings.overall.inProgress.map(function (device, i) {
