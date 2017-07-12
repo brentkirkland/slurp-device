@@ -99,7 +99,7 @@ var minor = [];
 var bleacon_data = [];
 
 // uncomment the following line to text not on the hour
-// Bleacon.startScanning();
+Bleacon.startScanning();
 
 setInterval(function() {
   var d = new Date()
@@ -119,7 +119,7 @@ setInterval(function() {
 
 setInterval(function() {
   var d = new Date()
-  if (d.getMinutes() % 5 === 1 && d.getHours() > 8 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
+  if (d.getMinutes() % 10 === 1 && d.getHours() > 8 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
     console.log('minute:', d.getMinutes())
     var waittime = 0;
     waterSettings.overall.inProgress.map(function (device, i) {
