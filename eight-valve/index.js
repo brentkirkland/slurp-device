@@ -24,7 +24,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: true,
-    time: 8000,
+    time: 3000,
     valve: "0x08",
     lastWatered: '--'
   },
@@ -33,7 +33,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 8000*2,
+    time: 3000,
     valve: "0x40",
     lastWatered: '--'
   },
@@ -42,7 +42,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 8000,
+    time: 3000,
     valve: "0x01",
     lastWatered: '--'
   },
@@ -51,7 +51,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 8000,
+    time: 3000,
     valve: "0x10",
     lastWatered: '--'
   },
@@ -60,7 +60,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 12000,
+    time: 3000,
     valve: "0x02",
     lastWatered: '--'
   },
@@ -69,7 +69,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 6000,
+    time: 3000,
     valve: "0x20",
     lastWatered: '--'
   },
@@ -78,7 +78,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: false,
-    time: 8000,
+    time: 3000,
     valve: "0x04",
     lastWatered: '--'
   },
@@ -87,7 +87,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 78,
     off: true,
-    time: 8000,
+    time: 3000,
     valve: "0x80",
     lastWatered: '--'
   },
@@ -119,7 +119,7 @@ setInterval(function() {
 
 setInterval(function() {
   var d = new Date()
-  if (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
+  if (d.getMinutes() % 5 === 1 && d.getHours() > 8 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
     console.log('minute:', d.getMinutes())
     var waittime = 0;
     waterSettings.overall.inProgress.map(function (device, i) {
