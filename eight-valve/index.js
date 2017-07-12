@@ -17,77 +17,77 @@ var shouldText = true;
 var waterSettings = {
   overall: {
     watering: false,
-    inProgress: ["d50e", "d511"]
+    inProgress: ["d50b", "d50e","d510", "d511"]
   },
   d50a: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: true,
-    time: 25000,
+    time: 8000,
     valve: "0x08",
     lastWatered: '--'
   },
   d50b: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 8000*2,
     valve: "0x40",
     lastWatered: '--'
   },
   d50c: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 8000,
     valve: "0x01",
     lastWatered: '--'
   },
   d50e: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 8000,
     valve: "0x10",
     lastWatered: '--'
   },
   d510: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 12000,
     valve: "0x02",
     lastWatered: '--'
   },
   d511: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 11000,
     valve: "0x20",
     lastWatered: '--'
   },
   d512: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: false,
-    time: 25000,
+    time: 8000,
     valve: "0x04",
     lastWatered: '--'
   },
   d513: {
     watering: false,
     minMoisture: 50,
-    maxMoisture: 80,
+    maxMoisture: 78,
     off: true,
-    time: 25000,
+    time: 8000,
     valve: "0x80",
     lastWatered: '--'
   },
@@ -100,6 +100,7 @@ var bleacon_data = [];
 
 // uncomment the following line to text not on the hour
 Bleacon.startScanning();
+
 setInterval(function() {
   var d = new Date()
   if (d.getMinutes() === 0) {
@@ -108,13 +109,35 @@ setInterval(function() {
     major = [];
     minor = [];
     bleacon_data = [];
-    if (waterSettings.overall.watering && d.getHours() > 8 && d.getHours() < 22) {
+    if (waterSettings.overall.watering && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0) {
       Bleacon.startScanning();
     } else if (d.getHours() === 9 || d.getHours() === 13 || d.getHours() === 17 || d.getHours() === 21) {
       Bleacon.startScanning();
     } else {
       //check api eventually
     }
+  }
+}, 60000)
+
+setInterval(function() {
+  var d = new Date()
+  if (d.getMinutes() % 10 === 5 && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0) {
+    console.log('minute:', d.getMinutes())
+    var waittime = 0;
+    waterSettings.overall.inProgress.map(function (device, index) {
+      setTimeout(function() {
+        console.log(waittime)
+        cycle(waterSettings[plant.major].valve)
+      }, waittime);
+      // end watering cycle
+      if (index === waterSettings.overall.inProgress - 1) {
+        setTimeout(function() {
+          console.log(waittime)
+          cycle("0x00")
+        }, waittime + waterSettings[device].time);
+      }
+      waittime += waterSettings[device].time
+    })
   }
 }, 60000)
 
@@ -146,23 +169,7 @@ function checkForWatering(readings) {
       console.log('should water', waterSettings[plant.major].valve)
       if (inProgressIndex === -1) {
         waterSettings.overall.inProgress.push(plant.major)
-        setTimeout(function() {
-          cycle(waterSettings[plant.major].valve)
-        }, waterSettings[plant.major].time * waterSettings.overall.inProgress.length);
-        // end watering cycle
-        setTimeout(function() {
-          cycle("0x00")
-        }, (waterSettings[plant.major].time - 250) * (waterSettings.overall.inProgress.length + 1));
-      } else {
-        setTimeout(function() {
-          cycle(waterSettings[plant.major].valve)
-        }, waterSettings[plant.major].time * inProgressIndex);
-        // end watering cycle
-        setTimeout(function() {
-          cycle("0x00")
-        }, (waterSettings[plant.major].time - 250) * (inProgressIndex + 1));
       }
-
       readings[index].watered = true;
       var currentWaterTime = (new Date).getTime();
       readings[index].lastWatered = currentWaterTime;
