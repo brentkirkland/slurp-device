@@ -128,9 +128,9 @@ setInterval(function() {
       setTimeout(function() {
         cycle(waterSettings[device].valve)
       }, waittime);
-      console.log('waittime', waittime)
+      console.log('waittime', waittime, i)
       // end watering cycle
-      if (i === waterSettings.overall.inProgress - 1) {
+      if (i === waterSettings.overall.inProgress.length - 1) {
         console.log('will execute turn off')
         setTimeout(function() {
           console.log(waittime)
