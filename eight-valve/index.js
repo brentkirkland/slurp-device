@@ -109,7 +109,7 @@ setInterval(function() {
     major = [];
     minor = [];
     bleacon_data = [];
-    if (waterSettings.overall.watering && d.getHours() > 8 && d.getHours() < 22 && d.getHours() % 2 === 0) {
+    if (waterSettings.overall.watering && d.getHours() > 7 && d.getHours() < 22 && d.getHours() % 2 === 0) {
       Bleacon.startScanning();
     } else {
       //check api eventually
