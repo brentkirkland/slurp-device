@@ -127,7 +127,7 @@ setInterval(function() {
     waterSettings.overall.inProgress.map(function (device, index) {
       setTimeout(function() {
         console.log(waittime)
-        cycle(waterSettings[plant.major].valve)
+        cycle(waterSettings[device].valve)
       }, waittime);
       // end watering cycle
       if (index === waterSettings.overall.inProgress - 1) {
