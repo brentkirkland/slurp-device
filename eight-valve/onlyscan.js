@@ -4,7 +4,7 @@ var Bleacon = require('bleacon');
 var major = [];
 var minor = [];
 var bleacon_data = [];
-
+var gotEight = false;
 // uncomment the following line to text not on the hour
 Bleacon.startScanning();
 
