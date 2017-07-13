@@ -70,6 +70,7 @@ Bleacon.on('discover', function(bleacon) {
       //TODO: make everything camel case
 
       console.log(calcAvgTemp);
+      gotEight = false;
 
     }
   } else {
