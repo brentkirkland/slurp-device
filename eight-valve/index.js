@@ -16,8 +16,8 @@ var shouldText = true;
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
-    watering: true,
-    inProgress: ["d50b", "d50e","d510", "d511"]
+    watering: false,
+    inProgress: ['db05', 'd511']
   },
   d50a: {
     watering: false,
@@ -99,7 +99,7 @@ var minor = [];
 var bleacon_data = [];
 
 // uncomment the following line to text not on the hour
-Bleacon.startScanning();
+// Bleacon.startScanning();
 
 setInterval(function() {
   var d = new Date()
@@ -109,7 +109,7 @@ setInterval(function() {
     major = [];
     minor = [];
     bleacon_data = [];
-    if (waterSettings.overall.watering && d.getHours() > 7 && d.getHours() < 22 && d.getHours() % 2 === 0) {
+    if (d.getHours() > 7 && d.getHours() < 22 && d.getHours() % 2 === 0) {
       Bleacon.startScanning();
     } else {
       //check api eventually
