@@ -52,7 +52,6 @@ Bleacon.on('discover', function(bleacon) {
           celcius: parseInt(temp, 16),
           fahrenheit: fahren,
           moisture: parseInt(moisture, 16),
-          lastWatered: waterSettings[switched_major].lastWatered,
           watered: false,
           device_nickname: switched_major,
           uuid: bleacon_data[i].uuid,
