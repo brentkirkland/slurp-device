@@ -24,7 +24,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: true,
-    time: 3000,
+    time: 5000,
     valve: "0x08",
     lastWatered: '--'
   },
@@ -33,7 +33,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x40",
     lastWatered: '--'
   },
@@ -42,7 +42,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x01",
     lastWatered: '--'
   },
@@ -51,7 +51,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x10",
     lastWatered: '--'
   },
@@ -60,7 +60,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x02",
     lastWatered: '--'
   },
@@ -69,7 +69,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x20",
     lastWatered: '--'
   },
@@ -78,7 +78,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: false,
-    time: 3000,
+    time: 5000,
     valve: "0x04",
     lastWatered: '--'
   },
@@ -87,7 +87,7 @@ var waterSettings = {
     minMoisture: 50,
     maxMoisture: 70,
     off: true,
-    time: 3000,
+    time: 5000,
     valve: "0x80",
     lastWatered: '--'
   },
