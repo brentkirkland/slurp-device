@@ -16,13 +16,13 @@ var shouldText = true;
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
-    watering: true,
-    inProgress: ['d50b', 'd511', 'd50c']
+    watering: false,
+    inProgress: []
   },
   d50a: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: true,
     time: 5000,
     valve: "0x08",
@@ -30,8 +30,8 @@ var waterSettings = {
   },
   d50b: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x40",
@@ -39,8 +39,8 @@ var waterSettings = {
   },
   d50c: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x01",
@@ -48,8 +48,8 @@ var waterSettings = {
   },
   d50e: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x10",
@@ -57,8 +57,8 @@ var waterSettings = {
   },
   d510: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x02",
@@ -66,8 +66,8 @@ var waterSettings = {
   },
   d511: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x20",
@@ -75,8 +75,8 @@ var waterSettings = {
   },
   d512: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: false,
     time: 5000,
     valve: "0x04",
@@ -84,8 +84,8 @@ var waterSettings = {
   },
   d513: {
     watering: false,
-    minMoisture: 50,
-    maxMoisture: 70,
+    minMoisture: 42,
+    maxMoisture: 69,
     off: true,
     time: 5000,
     valve: "0x80",
