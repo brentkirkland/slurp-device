@@ -16,7 +16,7 @@ var shouldText = true;
 // this will be pulled from server eventually
 var waterSettings = {
   overall: {
-    watering: false,
+    watering: true,
     inProgress: ['d50b', 'd511', 'd50c']
   },
   d50a: {
