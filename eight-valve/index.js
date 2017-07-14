@@ -99,7 +99,7 @@ var minor = [];
 var bleacon_data = [];
 
 // uncomment the following line to text not on the hour
-// Bleacon.startScanning();
+Bleacon.startScanning();
 
 setInterval(function() {
   var d = new Date()
