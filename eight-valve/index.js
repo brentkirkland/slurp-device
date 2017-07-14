@@ -117,29 +117,29 @@ setInterval(function() {
   }
 }, 60000)
 
-setInterval(function() {
-  var d = new Date()
-  if (d.getMinutes() % 10 === 1 && d.getHours() > 7 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
-    console.log('minute:', d.getMinutes())
-    var waittime = 0;
-    waterSettings.overall.inProgress.map(function (device, i) {
-      setTimeout(function() {
-        cycle(waterSettings[device].valve)
-      }, waittime);
-      console.log('waittime', waittime, i)
-      // end watering cycle
-      if (i === waterSettings.overall.inProgress.length - 1) {
-        console.log('will execute turn off')
-        setTimeout(function() {
-          console.log(waittime)
-          console.log('turning of')
-          cycle("0x00")
-        }, waittime + waterSettings[device].time);
-      }
-      waittime += waterSettings[device].time
-    })
-  }
-}, 60000)
+// setInterval(function() {
+//   var d = new Date()
+//   if (d.getMinutes() % 10 === 1 && d.getHours() > 7 && d.getHours() < 22 && (d.getHours() % 2 === 0 || waterSettings.overall.watering)) {
+//     console.log('minute:', d.getMinutes())
+//     var waittime = 0;
+//     waterSettings.overall.inProgress.map(function (device, i) {
+//       setTimeout(function() {
+//         cycle(waterSettings[device].valve)
+//       }, waittime);
+//       console.log('waittime', waittime, i)
+//       // end watering cycle
+//       if (i === waterSettings.overall.inProgress.length - 1) {
+//         console.log('will execute turn off')
+//         setTimeout(function() {
+//           console.log(waittime)
+//           console.log('turning of')
+//           cycle("0x00")
+//         }, waittime + waterSettings[device].time);
+//       }
+//       waittime += waterSettings[device].time
+//     })
+//   }
+// }, 60000)
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -239,7 +239,7 @@ Bleacon.on('discover', function(bleacon) {
         readings.push(data)
       }
 
-      checkForWatering(readings)
+      // checkForWatering(readings)
 
       var calcAvgTemp = (avgTemp / 8).toFixed(2);
 
