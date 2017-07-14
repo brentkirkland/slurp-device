@@ -1,12 +1,12 @@
 var Bleacon = require('bleacon');
 var fetch = require('node-fetch');
-var i2c = require('i2c');
-
-var address = 0x20;
-var wire = new i2c(address, {
-  device: '/dev/i2c-1'
-});
-wire.writeBytes(0x00, [0x00], function(err) {});
+// var i2c = require('i2c');
+//
+// var address = 0x20;
+// var wire = new i2c(address, {
+//   device: '/dev/i2c-1'
+// });
+// wire.writeBytes(0x00, [0x00], function(err) {});
 //gotEight helps prevent race condition of sending multiple messages
 var gotEight = false;
 
