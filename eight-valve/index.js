@@ -227,7 +227,7 @@ Bleacon.on('discover', function(bleacon) {
           celcius: parseInt(temp, 16),
           fahrenheit: fahren,
           moisture: parseInt(moisture, 16),
-          lastWatered: 'NOT WATERING',
+          lastWatered: '--',
           watered: false,
           device_nickname: switched_major,
           uuid: bleacon_data[i].uuid,
